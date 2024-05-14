@@ -1,0 +1,32 @@
+
+---
+
+
+services:
+
+ swag:
+   cap_add:
+     - NET_ADMIN
+   container_name: swag
+   environment:
+     - PUID=1000
+     - PGID=1000
+     - TZ=Asia/Tokyo
+     - URL=ukiyo.icu
+     - DNSPLUGIN=cloudflare
+#     - "SUBDOMAINS=www,nextcloud,collabora,plex"
+     - SUBDOMAINS=wildcard
+     - VALIDATION=dns
+     - EMAIL=mack.baise@gmail.com
+     - EXTRA_DOMAINS=kryptstar.com, *.kryptstar.com, *.nyc.ukiyo.icu
+   image: linuxserver/swag
+#   networks:
+#     - reverse-proxy-network
+#     - internalnetwork
+   network_mode: host
+   ports:
+     - "443:443"
+     - "80:80"
+   restart: unless-stopped
+   volumes:
+     - "/home/mack/media/docker/swag/swag_config:/config"
