@@ -1,1 +1,35 @@
 
+---
+
+
+services:
+
+ swag:
+   cap_add:
+     - NET_ADMIN
+   container_name: swag
+   environment:
+     - PUID=${PUID}
+     - PGID=${PGID}
+     - TZ=${TZ}
+     - URL=${URL}
+     - DNSPLUGIN=${DNSPLUGIN}
+# You can add subdomains or wildcard for all subdomains     
+#     - "SUBDOMAINS=www,nextcloud,collabora,plex"
+     - SUBDOMAINS=${SUBDOMAINS}
+     - VALIDATION=${VALIDATION}
+     - EMAIL=${EMAIL}
+     - EXTRA_DOMAINS=${EXTRA_DOMAINS}
+   image: linuxserver/swag
+#   networks:
+#     - reverse-proxy-network
+#     - internalnetwork
+   network_mode: host
+   ports:
+     - "443:443"
+     - "80:80"
+   restart: unless-stopped
+   volumes:
+     - "/home/mack/media/docker/swag/swag_config:/config"
+
+
